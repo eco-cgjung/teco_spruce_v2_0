@@ -5,7 +5,7 @@ RUN mkdir /source
 COPY . /source
 WORKDIR /source
 RUN yum install -y gcc gcc-gfortran
-RUN gfortran -o /source/teco_spruce_v2.0 /source/TECO_SPRUCE_2.0.f90
-RUN chmod +x /source/teco_spruce_v2.0
-ENTRYPOINT ["./teco_spruce_v2.0"]
-CMD ["./input/SPRUCE_pars.txt", "./input/SPRUCE_forcing.txt","./input/SPRUCE_obs.txt","/source/output/","0"]
+RUN gfortran -o /source/teco_spruce_v2.0 /source/TECO_SPRUCE_2_0.f90
+RUN chmod +x /source/teco_spruce_v2_0
+ENTRYPOINT ["./teco_spruce_v2_0"]
+CMD ["./input/SPRUCE_pars.txt", "./input/SPRUCE_forcing2011_2016.txt", "./input/SPRUCE_Water_Table_Level_2011-2014.txt", "./input/SPRUCE_Snow_Depth_2011-2014.txt", "./input/SPRUCE_obs.txt", "./input/SPRUCE_hummock_toplayer.txt", "./input/SPRUCE_soilt.txt", "./input/dai$
