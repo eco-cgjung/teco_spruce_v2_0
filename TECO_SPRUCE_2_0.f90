@@ -177,7 +177,7 @@ program TECO_MCMC
 ! ***************************************************************    
     
 !   Read parameters from file
-!    call getarg(1,parafile)
+    call getarg(1,parafile)
 !    parafile='input/SPRUCE_pars.txt' 5/25
     call Getparameters(lat,longi,wsmax,wsmin,           &              
     &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,           &
@@ -231,14 +231,16 @@ program TECO_MCMC
     
 !   Read climatic forcing
 !    climatefile='SPRUCE_forcing.txt'
-!    call getarg(2,climatefile1)
+    call getarg(2,climatefile1)
 !    climatefile1='input/SPRUCE_forcing2022.txt' !used this file before DA
 !    climatefile1='input/SPRUCE_forcing2011.txt'
 !    climatefile1='input/SPRUCE_forcing2011_2012repeat.txt'
 !    climatefile1='input/SPRUCE_forcing2011_2014repeat199920112016.txt'
 !    climatefile1='input/Plotsforcing2011-2016/MS_EM12014-2016.txt'
 !    climatefile1='input/Plotsforcing2011-2016/PLOT10forcing2011_2016.txt'    
-!    climatefile1='input/SPRUCE_forcing2011_2016.txt' 5/25
+
+!    climatefile1='input/SPRUCE_forcing2011_2016.txt' 5/25 #use this file only
+
 !    watertablefile='input/SPRUCE_Water_Table_Level_2011-2014.txt' 5/25
 !    snowdepthfile='input/SPRUCE_Snow_Depth_2011-2014.txt' 5/25
     
@@ -255,8 +257,9 @@ program TECO_MCMC
 !   getwatertable and snowdepth are used as forcing in soil thermal module by Yuanyuan   ..int
     
 !   Read observation data
-!    call getarg(3,obsfile1)
-!    obsfile1='input/SPRUCE_obs.txt' 5/25
+    call getarg(3,obsfile1)
+!    obsfile1='input/SPRUCE_obs.txt' 5/25 #only need this file
+
 !   added obs files 2-6 for ..int
 !    obsfile2='input/SPRUCE_hummock_toplayer.txt' 5/25
 !    obsfile3='input/SPRUCE_soilt.txt' 5/25
