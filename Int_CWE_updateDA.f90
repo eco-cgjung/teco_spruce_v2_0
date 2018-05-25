@@ -178,7 +178,7 @@ program TECO_MCMC
     
 !   Read parameters from file
 !    call getarg(1,parafile)
-    parafile='input/SPRUCE_pars.txt'
+!    parafile='input/SPRUCE_pars.txt' 5/25
     call Getparameters(lat,longi,wsmax,wsmin,           &              
     &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,           &
     &   SapR,SapS,SLA,GLmax,GRmax,Gsmax,stom_n,         &
@@ -238,9 +238,9 @@ program TECO_MCMC
 !    climatefile1='input/SPRUCE_forcing2011_2014repeat199920112016.txt'
 !    climatefile1='input/Plotsforcing2011-2016/MS_EM12014-2016.txt'
 !    climatefile1='input/Plotsforcing2011-2016/PLOT10forcing2011_2016.txt'    
-    climatefile1='input/SPRUCE_forcing2011_2016.txt'
-    watertablefile='input/SPRUCE_Water_Table_Level_2011-2014.txt'
-    snowdepthfile='input/SPRUCE_Snow_Depth_2011-2014.txt'
+!    climatefile1='input/SPRUCE_forcing2011_2016.txt' 5/25
+!    watertablefile='input/SPRUCE_Water_Table_Level_2011-2014.txt' 5/25
+!    snowdepthfile='input/SPRUCE_Snow_Depth_2011-2014.txt' 5/25
     
     call Getclimate(year_seq1,doy_seq1,hour_seq1,          &
     &   forcing_data1,climatefile1,lines1,yr_length1)
@@ -256,13 +256,13 @@ program TECO_MCMC
     
 !   Read observation data
 !    call getarg(3,obsfile1)
-    obsfile1='input/SPRUCE_obs.txt'
+!    obsfile1='input/SPRUCE_obs.txt' 5/25
 !   added obs files 2-6 for ..int
-    obsfile2='input/SPRUCE_hummock_toplayer.txt'
-    obsfile3='input/SPRUCE_soilt.txt'
-    obsfile4='input/daily_soilt_2011-2014.txt'
-    obsfile5='input/daily_watertable_2011-2014.txt'
-    obsfile6='input/obs_CH4_for_MEMCMC.txt'
+!    obsfile2='input/SPRUCE_hummock_toplayer.txt' 5/25
+!    obsfile3='input/SPRUCE_soilt.txt' 5/25
+!    obsfile4='input/daily_soilt_2011-2014.txt' 5/25
+!    obsfile5='input/daily_watertable_2011-2014.txt' 5/25
+!    obsfile6='input/obs_CH4_for_MEMCMC.txt' 5/25
     
     treatment=0.    ! Ambient temperature
     
@@ -418,7 +418,7 @@ program TECO_MCMC
 !    MCMC = 1    ! will be eventually totally replaced by    do_co2_da
 
 !    call getarg(6,DAparfile)
-    DAparfile='input/SPRUCE_da_pars.txt'
+!    DAparfile='input/SPRUCE_da_pars.txt' 5/25
     call GetDAcheckbox(DApar,parmin,parmax,DAparfile)
 
 !    if(MCMC.eq.1) GOTO 100  
