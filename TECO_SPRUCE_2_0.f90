@@ -194,7 +194,8 @@ program TECO_MCMC
     &   a1,Ds0,Vcmax0,extkU,xfang,alpha,                 &
     &   Tau_Leaf,Tau_Wood,Tau_Root,Tau_F,Tau_C,         &
     &   Tau_Micro,Tau_slowSOM,Tau_Passive,              &
-    &   gddonset,Q10,RL0,Rs0,Rr0/)
+    &   gddonset,Q10,RL0,Rs0,Rr0,			&
+    &   r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi/)
 
 ! ***********  int initial values of paras used in soil thermal is added here instead of in the pars file ********   
 ! Parameters for soil physical part Yuanyuan 
