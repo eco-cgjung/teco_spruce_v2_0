@@ -6249,4 +6249,3 @@ mean_tt=mean_tt+tab(i)/real(ncov)
 enddo
 mean=mean_tt
 End Function
-
