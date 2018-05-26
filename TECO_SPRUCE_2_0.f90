@@ -242,8 +242,8 @@ program TECO_MCMC
 
 !    climatefile1='input/SPRUCE_forcing2011_2016.txt' 5/25 #use this file only
 
-!    watertablefile='input/SPRUCE_Water_Table_Level_2011-2014.txt' 5/25
-!    snowdepthfile='input/SPRUCE_Snow_Depth_2011-2014.txt' 5/25
+    watertablefile='input/SPRUCE_Water_Table_Level_2011-2014.txt'
+    snowdepthfile='input/SPRUCE_Snow_Depth_2011-2014.txt'
     
     call Getclimate(year_seq1,doy_seq1,hour_seq1,          &
     &   forcing_data1,climatefile1,lines1,yr_length1)
@@ -262,11 +262,11 @@ program TECO_MCMC
 !    obsfile1='input/SPRUCE_obs.txt' 5/25 #only need this file
 
 !   added obs files 2-6 for ..int
-!    obsfile2='input/SPRUCE_hummock_toplayer.txt' 5/25
-!    obsfile3='input/SPRUCE_soilt.txt' 5/25
-!    obsfile4='input/daily_soilt_2011-2014.txt' 5/25
-!    obsfile5='input/daily_watertable_2011-2014.txt' 5/25
-!    obsfile6='input/obs_CH4_for_MEMCMC.txt' 5/25
+    obsfile2='input/SPRUCE_hummock_toplayer.txt' 
+    obsfile3='input/SPRUCE_soilt.txt'
+    obsfile4='input/daily_soilt_2011-2014.txt'
+    obsfile5='input/daily_watertable_2011-2014.txt'
+    obsfile6='input/obs_CH4_for_MEMCMC.txt'
     
     treatment=0.    ! Ambient temperature
     
@@ -299,8 +299,8 @@ program TECO_MCMC
 !    QC=(/500.,650.,200.,119.,300.,322.,38340.,23120./)     ! ecosystem initial state for 2011 forward
     QC=(/450.,380.,250.,119.,300.,322.,38340.,23120./)      ! updated leave wood biomass due to the change of estimated plot area
 !   Start main loop
-!    call getarg(4,outdir)
-    outdir = 'output'
+    call getarg(4,outdir)
+    !outdir = 'output'
     if (.not. do_co2_da) then
         write(outfile,"(A120,A18)") trim(outdir),"/SPRUCE_yearly.txt"
         outfile = trim(outfile)
@@ -417,12 +417,12 @@ program TECO_MCMC
           &  Hsoil,sftmp,Tair,resht_lai'    
     write(88,*) "melt,snow_dsim,snow_in,ta"     
 ! ***************************************************************************************    
-    !    call getarg(5,MCMCargu)
-!    read(MCMCargu,'(i1)') MCMC
+     call getarg(5,MCMCargu)
+     read(MCMCargu,'(i1)') MCMC
 !    MCMC = 1    ! will be eventually totally replaced by    do_co2_da
 
-!    call getarg(6,DAparfile)
-!    DAparfile='input/SPRUCE_da_pars.txt' 5/25
+     call getarg(6,DAparfile)
+   !DAparfile='input/SPRUCE_da_pars.txt' 5/25
     call GetDAcheckbox(DApar,parmin,parmax,DAparfile)
 
 !    if(MCMC.eq.1) GOTO 100  
