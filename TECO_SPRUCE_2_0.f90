@@ -84,7 +84,7 @@ program TECO_MCMC
     character(len=50) watertablefile,snowdepthfile
     
 !   for MCMC
-    integer MCMC ! 0:run model simulation; 1:data assimilation 
+    integer MCMC,do_co2_da ! 0:run model simulation; 1:data assimilation 
     integer IDUM,upgraded,isimu
 !    integer, parameter :: npara=18       ! Number of parameters to be estimated
     integer npara
@@ -166,7 +166,7 @@ program TECO_MCMC
     logical, parameter :: do_watertable_da     = .False.
     logical, parameter :: do_methane_da   = .False.
 !    logical, parameter :: do_co2_da   = .True.
-    logical, parameter :: do_co2_da   = .False.
+!    logical, parameter :: do_co2_da   = .False.
     logical, parameter :: do_soilwater_da = .False.
     yrlim = 2014   ! what is yrlim and dylim for?
     dylim = 365
@@ -301,7 +301,8 @@ program TECO_MCMC
 !   Start main loop
     call getarg(4,outdir)
     !outdir = 'output'
-    if (.not. do_co2_da) then
+    !chang edited_060618
+    if (do_co2_da.ne.1) then
         write(outfile,"(A120,A18)") trim(outdir),"/SPRUCE_yearly.txt"
         outfile = trim(outfile)
         outfile = adjustl(outfile)
@@ -418,15 +419,16 @@ program TECO_MCMC
     write(88,*) "melt,snow_dsim,snow_in,ta"     
 ! ***************************************************************************************    
      call getarg(5,MCMCargu)
-     read(MCMCargu,'(i1)') MCMC
+     read(MCMCargu,'(i1)') do_co2_da
 !    MCMC = 1    ! will be eventually totally replaced by    do_co2_da
 
      call getarg(6,DAparfile)
    !DAparfile='input/SPRUCE_da_pars.txt' 5/25
     call GetDAcheckbox(DApar,parmin,parmax,DAparfile)
 
-!    if(MCMC.eq.1) GOTO 100  
-    if (do_co2_da) GOTO 100
+!    if(MCMC.eq.1) GOTO 100
+!chang edited_060618  
+    if (do_co2_da.eq.1) GOTO 100
     if(MCMC.eq.2) GOTO 150
 
     year_seq = year_seq1
@@ -437,7 +439,7 @@ program TECO_MCMC
     lines = lines1
     yr_length = yr_length1
     yrs_eq=yr_length*0  ! spin up length 
-    call TECO_simu(MCMC,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
+    call TECO_simu(MCMC,do_co2_da,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
      &        obs_spruce,yrlim,dylim,Ttreat,CO2treat,              &
      &        forcing_data,yr_length,year_seq,doy_seq,hour_seq,lines,   &
      &        fwsoil,topfws,omega,wcl,Storage,nsc,yrs_eq,QC,    &
@@ -804,7 +806,7 @@ program TECO_MCMC
         Rr0 = parval(35)
 
 !   update parameters.. int local run 
-      if (do_co2_da) then        
+      if (do_co2_da.eq.1) then        
 !        Tau_Leaf=coef(1)
 !        Tau_Wood=coef(2)
 !        Tau_Root=coef(3)
@@ -863,7 +865,7 @@ program TECO_MCMC
     
     
         yrs_eq = 0
-        call TECO_simu(MCMC,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
+        call TECO_simu(MCMC,do_co2_da,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
      &        obs_spruce,yrlim,dylim,Ttreat,CO2treat,              &
      &        forcing_data,yr_length,year_seq,doy_seq,hour_seq,lines,   &
      &        fwsoil,topfws,omega,wcl,Storage,nsc,yrs_eq,QC,    &
@@ -1074,7 +1076,7 @@ program TECO_MCMC
 
 
 ! ====================================================================
-    subroutine TECO_simu(MCMC,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
+    subroutine TECO_simu(MCMC,do_co2_da,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
      &        obs_spruce,yrlim,dylim,Ttreat,CO2treat,              &
      &        forcing_data,yr_length,year_seq,doy_seq,hour_seq,lines,   &
      &        fwsoil,topfws,omega,wcl,Storage,nsc,yrs_eq,QC,    &
@@ -1101,7 +1103,7 @@ program TECO_MCMC
       integer, parameter :: iiterms=7            ! 9 for Duke forest FACE
       integer, parameter :: ilines=150000         ! the maxmum records of Duke Face, 1998~2007
       real, parameter:: times_storage_use=720.   ! 720 hours, 30 days
-      integer  lines,idays,MCMC
+      integer  lines,idays,MCMC,do_co2_da
       integer,dimension(ilines):: year_seq,doy_seq,hour_seq
       real forcing_data(iiterms,ilines),input_data(iiterms,ilines)
 !   *** before ..int
@@ -1293,7 +1295,7 @@ program TECO_MCMC
       real Ebu_sum_sat, Ebu_sum_unsat
 !*******************************************
 !   ***  for write out data
-      logical do_co2_da
+!     logical do_co2_da
       
       
       
@@ -2060,13 +2062,13 @@ program TECO_MCMC
                 
             storage=accumulation
             stor_use=Storage/times_storage_use
-            if(yr.eq.yrs_eq+yr_length .and. MCMC.eq.1)then
+            if(yr.eq.yrs_eq+yr_length .and. do_co2_da.eq.1)then
             write(*,*)yr,LAI,gpp_yr,NPP_yr,pheno
             write(61,601)year,LAI,gpp_yr,NPP_yr,real(pheno)
             endif
 !                
 !            if(MCMC.ne.1) then
-            if (.not. do_co2_da) then            
+            if (do_co2_da.ne.1) then            
                 write(*,*)year,LAI,gpp_yr,NPP_yr,pheno,pheno
                 write(61,601)year,LAI,gpp_yr,NPP_yr,Ra_yr,Rh_yr, &
                 &   ET,rain_yr,transp_yr,evap_yr,runoff_yr,GL_yr,    &
@@ -2080,7 +2082,7 @@ program TECO_MCMC
          enddo            !end of simulations multiple years
          
 !         if(MCMC.ne.1)then
-         if (.not. do_co2_da) then
+         if (do_co2_da.ne.1) then
              do i=1,daily
              write(62,602)i,(Simu_dailyflux(j,i),j=1,12)
              write(662,6602)i,(Simu_dailyflux14(j,i),j=1,14)
@@ -5675,11 +5677,11 @@ return
     
     real Simu_dailyCH4(16,4000)
     real obs_CH4_MEMCMC(2,1000),std_CH4(2,1000)
-    integer jch4
-    logical do_soilt_da, do_snow_da, do_watertable_da,do_methane_da,do_co2_da,do_soilwater_da  
+    integer jch4, do_co2_da
+    logical do_soilt_da, do_snow_da, do_watertable_da,do_methane_da,do_soilwater_da  
                                
 !    compute J_obs
-   if (do_co2_da) then
+   if (do_co2_da.eq.1) then
 
     
     J_gpp=0.0
