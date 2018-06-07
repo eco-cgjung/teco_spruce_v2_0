@@ -461,134 +461,128 @@ program TECO_MCMC
     return
 150 continue    
 !    !   Update posterior parameters
-!    write(paraestfile,"(A120,A12)") trim(outdir),"/Paraest.txt"
-!    paraestfile = trim(paraestfile)
-!    paraestfile = adjustl(paraestfile)
-!    call Getparaest(paraestfile,paraest,seq,npara,indexstring)
-!    allocate(coefindex(npara))
-!    write (my_fmt, '(a,i0,a)') '(',npara,'I12)'
-!    read(indexstring,my_fmt) coefindex
-!
-!!    call getarg(8,yrargu)
-!!    read(yrargu,'(i4)') yrlim
+    write(paraestfile,"(A120,A12)") trim(outdir),"/Paraest.txt"
+    paraestfile = trim(paraestfile)
+    paraestfile = adjustl(paraestfile)
+    call Getparaest(paraestfile,paraest,seq,npara,indexstring)
+    allocate(coefindex(npara))
+    write (my_fmt, '(a,i0,a)') '(',npara,'I12)'
+    read(indexstring,my_fmt) coefindex
+
+    call getarg(8,yrargu)
+    read(yrargu,'(i4)') yrlim
 !    yrlim = 2024
-!!    call getarg(9,dyargu)
-!!    read(dyargu,'(i3)') dylim
+    call getarg(9,dyargu)
+    read(dyargu,'(i3)') dylim
 !    dylim = 365
-!!    call getarg(10,Targu)
-!!    read(Targu,'(f9.3)') Ttreat
+    call getarg(10,Targu)
+    read(Targu,'(f9.3)') Ttreat
 !    Ttreat = 0.0
-!!    call getarg(11,CO2argu) 
-!!    read(CO2argu,'(f9.3)') CO2treat
+    call getarg(11,CO2argu) 
+    read(CO2argu,'(f9.3)') CO2treat
 !    CO2treat = 380.0
-!    
-!    
-!    DO rep=1,100
-!        
-!    CALL random_number(randnum)
-!    Pselect = int(seq/2+randnum*(seq-seq/2))
-!    
-!    !Pselect = 10000
-!    do k1=1,npara
-!        parval(coefindex(k1))=paraest(k1+1,Pselect)
-!    enddo
-!        SLA = parval(12)
-!        GLmax = parval(13)
-!        GRmax = parval(14)
-!        Gsmax = parval(15)
-!        Vcmax0 = parval(19)
-!        Tau_Leaf = parval(23)
-!        Tau_Wood = parval(24)
-!        Tau_Root = parval(25)
-!        Tau_F = parval(26)
-!        Tau_C = parval(27)
-!        Tau_Micro = parval(28)
-!        Tau_slowSOM = parval(29)
-!        Tau_Passive = parval(30)
-!        gddonset = parval(31)
-!        Q10 = parval(32)
-!        RL0 = parval(33)
-!        Rs0 = parval(34)
-!        Rr0 = parval(35)
-!    
-!!   Read generated climatic forcing
-!!    call getarg(7,forcingdir)
+    
+    
+    DO rep=1,100
+        
+    CALL random_number(randnum)
+    Pselect = int(seq/2+randnum*(seq-seq/2))
+    
+    !Pselect = 10000
+    do k1=1,npara
+        parval(coefindex(k1))=paraest(k1+1,Pselect)
+    enddo
+        SLA = parval(12)
+        GLmax = parval(13)
+        GRmax = parval(14)
+        Gsmax = parval(15)
+        Vcmax0 = parval(19)
+        Tau_Leaf = parval(23)
+        Tau_Wood = parval(24)
+        Tau_Root = parval(25)
+        Tau_F = parval(26)
+        Tau_C = parval(27)
+        Tau_Micro = parval(28)
+        Tau_slowSOM = parval(29)
+        Tau_Passive = parval(30)
+        gddonset = parval(31)
+        Q10 = parval(32)
+        RL0 = parval(33)
+        Rs0 = parval(34)
+        Rr0 = parval(35)
+
+!   Read generated climatic forcing
+    call getarg(7,forcingdir)
 !    forcingdir = 'input/Weathergenerate'
-!    write(climatefile2,"(A120,A10,I3.3,A4)") trim(forcingdir),"/EMforcing",rep,".csv"
-!    climatefile2=trim(climatefile2)
-!    climatefile2=adjustl(climatefile2)
-!    call Getclimate(year_seq,doy_seq,hour_seq,          &
-!    &   forcing_data,climatefile2,lines,yr_length)
-!    do k1=1,lines1
-!        year_seq(k1)=year_seq1(k1)
-!        doy_seq(k1)=doy_seq1(k1)
-!        hour_seq(k1)=hour_seq1(k1)
-!        forcing_data(1,k1)=forcing_data1(1,k1)
-!        forcing_data(2,k1)=forcing_data1(2,k1)
-!        forcing_data(3,k1)=forcing_data1(3,k1)
-!        forcing_data(4,k1)=forcing_data1(4,k1)
-!        forcing_data(5,k1)=forcing_data1(5,k1)
-!        forcing_data(6,k1)=forcing_data1(6,k1)
-!        forcing_data(7,k1)=forcing_data1(7,k1)
-!    enddo
-!    
-!    write(outfile,"(A120,A15,I3.3,A4)") trim(outdir), "/Simu_dailyflux",rep,".txt"
-!    outfile=trim(outfile)
-!    outfile=adjustl(outfile)
-!    open(62,file=outfile)
-!! MS inserted simu_daily output ****   
-!    write(outfile,"(A120,A16,I3.3,A4)") trim(outdir), "/Simu_dailywater",rep,".txt"
-!    outfile=trim(outfile)
-!    outfile=adjustl(outfile)
-!    open(63,file=outfile) 
-!    
-!    write(outfile,"(A120,A17,I3.3,A4)") trim(outdir), "/Simu_dailyflux14",rep,".txt"
-!    outfile=trim(outfile)
-!    outfile=adjustl(outfile)
-!    open(662,file=outfile)    
-!! end of insert  ****    
-!    fwsoil=1.0
-!    topfws=1.0
-!    omega=1.0
-!    do i=1,10
-!        wcl(i)=wsmax/100.
-!    enddo 
-!    Storage=32.09           !g C/m2
-!    nsc=85.35
-!!         put the values into a matrix
-!!   QC=(/300.,6300.,300.,119.,300.,322.,8834.,312./)
-!!   QC=(/100.,800.,100.,39.,100.,122.,834.,12./)
-! !   QC=(/440.,700.,300.,119.,300.,322.,38340.,23120./)
-!!    QC=(/300.,650.,100.,119.,300.,322.,38340.,23120./)
-!    
-!    yrs_eq=yr_length*0  ! spin up length 
-!    call TECO_simu(MCMC,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
-!     &        obs_spruce,yrlim,dylim,Ttreat,CO2treat,              &
-!     &        forcing_data,yr_length,year_seq,doy_seq,hour_seq,lines,   &
-!     &        fwsoil,topfws,omega,wcl,Storage,nsc,yrs_eq,QC,    &
-!     &        lat,longi,wsmax,wsmin,LAIMAX,LAIMIN,rdepth,     &
-!     &        Rootmax,Stemmax,SapR,SapS,SLA,GLmax,GRmax,Gsmax,      &
-!     &        stom_n,a1,Ds0,Vcmax0,extkU,xfang,alpha,               &
-!     &        tau_Leaf,tau_Wood,tau_Root,tau_F,tau_C,tau_Micro,     &   ! the unit is year
-!     &        tau_SlowSOM,tau_Passive,gddonset,                     &
-!     &        Q10,Rl0,Rs0,Rr0,pi,tauL,rhoL,rhoS,emleaf,emsoil,&
-!     &    Rconst,sigma,cpair,Patm,Trefk,H2OLv0,airMa,H2OMw,chi,Dheat,&
-!     &    wleaf,gsw0,eJmx0,theta,conKc0,conKo0,Ekc,Eko,o2ci,&
-!     &    Eavm,Edvm,Eajm,Edjm,Entrpy,gam0,gam1,gam2,wsc,&
-!     &    Simu_soiltemp,water_table,snow_in,&
-!     &    obs_soilt,diff_s,diff_snow,albedo_snow,resht,thd_snow_depth,b_bound,&
-!     &    Simu_watertable,infilt_rate,Simu_dailysoilt,Simu_dailywatertable,&
-!     &    Simu_snowdepth,fa,fsub,rho_snow,decay_m,Simu_dailyice,shcap_snow,condu_snow,condu_b,&
-!     &    depth_ex,r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi,Simu_dailyCH4,do_snow,do_soilphy)   
-!    write(*,*)'run forecasting',rep
-!    close(62)
-!    close(63)
-!    close(82)
-!!    close(121)
-!!    close(122)
-!    enddo ! END of rep
-!
-!    return
+    write(climatefile2,"(A120,A10,I3.3,A4)") trim(forcingdir),"/EMforcing",rep,".csv"
+    climatefile2=trim(climatefile2)
+    climatefile2=adjustl(climatefile2)
+    call Getclimate(year_seq,doy_seq,hour_seq,          &
+    &   forcing_data,climatefile2,lines,yr_length)
+    do k1=1,lines1
+        year_seq(k1)=year_seq1(k1)
+        doy_seq(k1)=doy_seq1(k1)
+        hour_seq(k1)=hour_seq1(k1)
+        forcing_data(1,k1)=forcing_data1(1,k1)
+        forcing_data(2,k1)=forcing_data1(2,k1)
+        forcing_data(3,k1)=forcing_data1(3,k1)
+        forcing_data(4,k1)=forcing_data1(4,k1)
+        forcing_data(5,k1)=forcing_data1(5,k1)
+        forcing_data(6,k1)=forcing_data1(6,k1)
+        forcing_data(7,k1)=forcing_data1(7,k1)
+    enddo
+    
+    write(outfile,"(A120,A15,I3.3,A4)") trim(outdir), "/Simu_dailyflux",rep,".txt"
+    outfile=trim(outfile)
+    outfile=adjustl(outfile)
+    open(62,file=outfile)
+! MS inserted simu_daily output ****   
+    write(outfile,"(A120,A16,I3.3,A4)") trim(outdir), "/Simu_dailywater",rep,".txt"
+    outfile=trim(outfile)
+    outfile=adjustl(outfile)
+    open(63,file=outfile) 
+    
+    write(outfile,"(A120,A17,I3.3,A4)") trim(outdir), "/Simu_dailyflux14",rep,".txt"
+    outfile=trim(outfile)
+    outfile=adjustl(outfile)
+    open(662,file=outfile)    
+! end of insert  ****    
+    fwsoil=1.0
+    topfws=1.0
+    omega=1.0
+    do i=1,10
+        wcl(i)=wsmax/100.
+    enddo 
+    Storage=32.09           !g C/m2
+    nsc=85.35
+
+    yrs_eq=yr_length*0  ! spin up length 
+    call TECO_simu(MCMC,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
+     &        obs_spruce,yrlim,dylim,Ttreat,CO2treat,              &
+     &        forcing_data,yr_length,year_seq,doy_seq,hour_seq,lines,   &
+     &        fwsoil,topfws,omega,wcl,Storage,nsc,yrs_eq,QC,    &
+     &        lat,longi,wsmax,wsmin,LAIMAX,LAIMIN,rdepth,     &
+     &        Rootmax,Stemmax,SapR,SapS,SLA,GLmax,GRmax,Gsmax,      &
+     &        stom_n,a1,Ds0,Vcmax0,extkU,xfang,alpha,               &
+     &        tau_Leaf,tau_Wood,tau_Root,tau_F,tau_C,tau_Micro,     &   ! the unit is year
+     &        tau_SlowSOM,tau_Passive,gddonset,                     &
+     &        Q10,Rl0,Rs0,Rr0,pi,tauL,rhoL,rhoS,emleaf,emsoil,&
+     &    Rconst,sigma,cpair,Patm,Trefk,H2OLv0,airMa,H2OMw,chi,Dheat,&
+     &    wleaf,gsw0,eJmx0,theta,conKc0,conKo0,Ekc,Eko,o2ci,&
+     &    Eavm,Edvm,Eajm,Edjm,Entrpy,gam0,gam1,gam2,wsc,&
+     &    Simu_soiltemp,water_table,snow_in,&
+     &    obs_soilt,diff_s,diff_snow,albedo_snow,resht,thd_snow_depth,b_bound,&
+     &    Simu_watertable,infilt_rate,Simu_dailysoilt,Simu_dailywatertable,&
+     &    Simu_snowdepth,fa,fsub,rho_snow,decay_m,Simu_dailyice,shcap_snow,condu_snow,condu_b,&
+     &    depth_ex,r_me,Q10pro,kCH4,Omax,CH4_thre,Tveg,Tpro_me,Toxi,Simu_dailyCH4,do_snow,do_soilphy)   
+    write(*,*)'run forecasting',rep
+    close(62)
+    close(63)
+    close(662)
+
+enddo ! END of rep
+
+    return
     
 100 continue
 
