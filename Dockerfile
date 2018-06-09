@@ -8,4 +8,4 @@ RUN yum install -y gcc gcc-gfortran
 RUN gfortran -o /source/teco_spruce_v2_0 /source/TECO_SPRUCE_2_0.f90
 RUN chmod +x /source/teco_spruce_v2_0
 ENTRYPOINT ["./teco_spruce_v2_0"]
-CMD ["./input/SPRUCE_pars.txt", "./input/SPRUCE_forcing.txt", "./input/SPRUCE_obs.txt", "/source/output/", "0"]
+CMD ["./input/SPRUCE_v2_0_pars.txt", "./input/SPRUCE_v2_0_forcing.txt", "./input/SPRUCE_v2_0_obs.txt", "/source/output/", "0"]
