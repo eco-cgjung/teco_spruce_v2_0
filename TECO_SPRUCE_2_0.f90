@@ -557,7 +557,7 @@ program TECO_MCMC
     nsc=85.35
 
     yrs_eq=yr_length*0  ! spin up length 
-    call TECO_simu(MCMC,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
+    call TECO_simu(MCMC,do_co2_da,Simu_dailyflux,Simu_soilwater,obs_soilwater,      &
      &        obs_spruce,yrlim,dylim,Ttreat,CO2treat,              &
      &        forcing_data,yr_length,year_seq,doy_seq,hour_seq,lines,   &
      &        fwsoil,topfws,omega,wcl,Storage,nsc,yrs_eq,QC,    &
