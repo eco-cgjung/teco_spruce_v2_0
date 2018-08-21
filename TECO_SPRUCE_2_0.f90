@@ -177,7 +177,7 @@ program TECO_MCMC
 ! ***************************************************************    
     
 !   Read parameters from file
-    call getarg(1,parafile)
+    call getarg(1,parafile) !chang_edited
 !    parafile='input/SPRUCE_pars.txt' 5/25
     call Getparameters(lat,longi,wsmax,wsmin,           &              
     &   LAIMAX,LAIMIN,rdepth,Rootmax,Stemmax,           &
@@ -232,7 +232,7 @@ program TECO_MCMC
     
 !   Read climatic forcing
 !    climatefile='SPRUCE_forcing.txt'
-    call getarg(2,climatefile1)
+    call getarg(2,climatefile1) !chang_edited
 !    climatefile1='input/SPRUCE_forcing2022.txt' !used this file before DA
 !    climatefile1='input/SPRUCE_forcing2011.txt'
 !    climatefile1='input/SPRUCE_forcing2011_2012repeat.txt'
@@ -258,7 +258,7 @@ program TECO_MCMC
 !   getwatertable and snowdepth are used as forcing in soil thermal module by Yuanyuan   ..int
     
 !   Read observation data
-    call getarg(3,obsfile1)
+    call getarg(3,obsfile1) !chang_edited
 !    obsfile1='input/SPRUCE_obs.txt' 5/25 #only need this file
 
 !   added obs files 2-6 for ..int
@@ -299,7 +299,7 @@ program TECO_MCMC
 !    QC=(/500.,650.,200.,119.,300.,322.,38340.,23120./)     ! ecosystem initial state for 2011 forward
     QC=(/450.,380.,250.,119.,300.,322.,38340.,23120./)      ! updated leave wood biomass due to the change of estimated plot area
 !   Start main loop
-    call getarg(4,outdir)
+    call getarg(4,outdir) !chang_edited
     !outdir = 'output'
     !chang edited_060618
     if (do_co2_da.ne.1) then
@@ -418,11 +418,11 @@ program TECO_MCMC
           &  Hsoil,sftmp,Tair,resht_lai'    
     write(88,*) "melt,snow_dsim,snow_in,ta"     
 ! ***************************************************************************************    
-     call getarg(5,MCMCargu)
+     call getarg(5,MCMCargu) !chang_edited
      read(MCMCargu,'(i1)') do_co2_da
 !    MCMC = 1    ! will be eventually totally replaced by    do_co2_da
 
-     call getarg(6,DAparfile)
+     call getarg(6,DAparfile) !chang_edited
    !DAparfile='input/SPRUCE_da_pars.txt' 5/25
     call GetDAcheckbox(DApar,parmin,parmax,DAparfile)
 
@@ -469,16 +469,16 @@ program TECO_MCMC
     write (my_fmt, '(a,i0,a)') '(',npara,'I12)'
     read(indexstring,my_fmt) coefindex
 
-    call getarg(8,yrargu)
+    call getarg(8,yrargu) !chang_edited
     read(yrargu,'(i4)') yrlim
 !    yrlim = 2024
-    call getarg(9,dyargu)
+    call getarg(9,dyargu) !chang_edited
     read(dyargu,'(i3)') dylim
 !    dylim = 365
-    call getarg(10,Targu)
+    call getarg(10,Targu) !chang_edited
     read(Targu,'(f9.3)') Ttreat
 !    Ttreat = 0.0
-    call getarg(11,CO2argu) 
+    call getarg(11,CO2argu) !chang_edited
     read(CO2argu,'(f9.3)') CO2treat
 !    CO2treat = 380.0
     
@@ -512,7 +512,7 @@ program TECO_MCMC
         Rr0 = parval(35)
 
 !   Read generated climatic forcing
-    call getarg(7,forcingdir)
+    call getarg(7,forcingdir) !chang_edited
 !    forcingdir = 'input/Weathergenerate'
     write(climatefile2,"(A120,A10,I3.3,A4)") trim(forcingdir),"/EMforcing",rep,".csv"
     climatefile2=trim(climatefile2)
